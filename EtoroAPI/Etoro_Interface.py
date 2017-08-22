@@ -61,9 +61,8 @@ class Etoro_Interface:
             Transactions.execute(each, quantity, type_pos)
             print type_pos, "operation of quantity: ", quantity, ", executed for: ", self.stocks[each]
         
-    def close_trades(self, positions):
+    def close_trades(self):
         
-        self.last_positions = positions
         tot_stocks = len(self.stocks)
         Closing = close_transaction(self.Etoro)
         
