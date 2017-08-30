@@ -67,7 +67,7 @@ class Etoro_Interface:
         Closing = close_transaction(self.Etoro)
         
         for each in range(0,tot_stocks):
-            Etoro.set_portfolio()            
+            self.Etoro.set_portfolio()            
             Closing.execute(each)
             
     def keep_alive(self):
