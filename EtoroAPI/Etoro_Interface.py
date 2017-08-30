@@ -5,7 +5,8 @@ class Etoro_Interface:
     def __init__(self,  path_driver,
                  Etoro = 'None', login = 'JoseEMorales',
                  password = 'f36567Am', port_type = 'virtual',
-                 stocks = [], last_positions = [], force_popups = 2):
+                 stocks = [], last_positions = [],
+		 force_popups = 2, minimum_order = 50.0):
         
         self.login = login
         self.password = password
@@ -15,6 +16,7 @@ class Etoro_Interface:
         self.force_popups = force_popups
         self.stocks = stocks
         self.last_positions = last_positions
+	self.minimum_order = minimum_order
         self.init_config()
         
         
@@ -57,9 +59,10 @@ class Etoro_Interface:
                 type_pos = 'buy'
             else:
                 type_pos = 'sell'
-            
-            Transactions.execute(each, quantity, type_pos)
-            print type_pos, "operation of quantity: ", quantity, ", executed for: ", self.stocks[each]
+
+            if quantity >= self.minimum_order:
+	            Transactions.execute(each, quantity, type_pos)
+	            print type_pos, "operation of quantity: ", quantity, ", executed for: ", self.stocks[each]
         
     def close_trades(self):
         
