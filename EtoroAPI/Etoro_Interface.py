@@ -64,14 +64,30 @@ class Etoro_Interface:
 	            Transactions.execute(each, quantity, type_pos)
 	            print type_pos, "operation of quantity: ", quantity, ", executed for: ", self.stocks[each]
         
+#    def close_trades(self):
+        
+#        tot_stocks = len(self.stocks)
+#        Closing = close_transaction(self.Etoro)
+        
+#        for each in range(0,tot_stocks):
+#            self.Etoro.set_portfolio()            
+#            Closing.execute(each)
+
     def close_trades(self):
         
         tot_stocks = len(self.stocks)
         Closing = close_transaction(self.Etoro)
         
         for each in range(0,tot_stocks):
-            self.Etoro.set_portfolio()            
-            Closing.execute(each)
+            self.Etoro.set_portfolio()
+
+            quantity = abs(self.last_positions[each])
+
+	    if quantity>=self.minimum_order:
+	    	Closing.execute(0)
+	    else:
+		pass
+
             
     def keep_alive(self):
         '''Keep alive the session at every minute
